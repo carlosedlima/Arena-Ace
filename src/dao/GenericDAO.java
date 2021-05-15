@@ -14,7 +14,7 @@ public class GenericDAO<T> {
     private final Class persistentClass;
 
     public GenericDAO() {
-        this.entityManager = ManageFactory.getEntityManager();
+        this.entityManager = ManagerFactory.getEntityManager();
         this.persistentClass = (Class) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
     }
 
