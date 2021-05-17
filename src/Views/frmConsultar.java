@@ -47,6 +47,11 @@ public class frmConsultar extends javax.swing.JInternalFrame {
         jPanel1.add(btnExcluir, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 270, -1, -1));
 
         btnNovo.setText("Novo");
+        btnNovo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnNovoActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnNovo, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 270, -1, -1));
 
         btnAlterar.setText("Alterar");
@@ -74,6 +79,10 @@ public class frmConsultar extends javax.swing.JInternalFrame {
     private void btnAlterarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAlterarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnAlterarActionPerformed
+
+    private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
+       
+    }//GEN-LAST:event_btnNovoActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
