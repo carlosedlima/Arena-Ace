@@ -20,11 +20,7 @@ import javax.persistence.Table;
 @NamedQueries({
     @NamedQuery(name = "Produto.findAll", query = "SELECT p FROM Produto p"),
     @NamedQuery(name = "Produto.findById", query = "SELECT p FROM Produto p WHERE p.id = :id"),
-    @NamedQuery(name = "Produto.findByCodigo", query = "SELECT p FROM Produto p WHERE p.codigo = :codigo"),
-    @NamedQuery(name = "Produto.findByProduto", query = "SELECT p FROM Produto p WHERE p.produto = :produto"),
-    @NamedQuery(name = "Produto.findByValorCusto", query = "SELECT p FROM Produto p WHERE p.valorCusto = :valorCusto"),
-    @NamedQuery(name = "Produto.findByValorVenda", query = "SELECT p FROM Produto p WHERE p.valorVenda = :valorVenda"),
-    @NamedQuery(name = "Produto.findByQuantidade", query = "SELECT p FROM Produto p WHERE p.quantidade = :quantidade")})
+    @NamedQuery(name = "Produto.findByProduto", query = "SELECT p FROM Produto p WHERE p.produto = :produto")})
 public class Produto implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -34,16 +30,13 @@ public class Produto implements Serializable {
     @Column(name = "id")
     private Integer id;
     @Basic(optional = false)
-    @Column(name = "codigo")
-    private String codigo;
-    @Basic(optional = false)
     @Column(name = "produto")
     private String produto;
     @Basic(optional = false)
-    @Column(name = "valor custo")
+    @Column(name = "valorcusto")
     private double valorCusto;
     @Basic(optional = false)
-    @Column(name = "valor venda")
+    @Column(name = "valorvenda")
     private double valorVenda;
     @Basic(optional = false)
     @Column(name = "quantidade")
@@ -58,9 +51,9 @@ public class Produto implements Serializable {
         this.id = id;
     }
 
-    public Produto(Integer id, String codigo, String produto, double valorCusto, double valorVenda, int quantidade) {
+    public Produto(Integer id, String produto, double valorCusto, double valorVenda, int quantidade) {
         this.id = id;
-        this.codigo = codigo;
+
         this.produto = produto;
         this.valorCusto = valorCusto;
         this.valorVenda = valorVenda;
@@ -73,14 +66,6 @@ public class Produto implements Serializable {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getCodigo() {
-        return codigo;
-    }
-
-    public void setCodigo(String codigo) {
-        this.codigo = codigo;
     }
 
     public String getProduto() {

@@ -1,5 +1,8 @@
 package dao;
 
-public class ProdutosDAO extends GenericDAO  {
+import Models.Produtos;
+import entity.Produto;
+
+public class ProdutosDAO extends GenericDAO<Produto>  {
     
 }

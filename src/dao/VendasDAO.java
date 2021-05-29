@@ -1,6 +1,9 @@
 
 package dao;
 
-public class VendasDAO extends GenericDAO {
+
+import entity.Venda;
+
+public class VendasDAO extends GenericDAO<Venda> {
     
 }

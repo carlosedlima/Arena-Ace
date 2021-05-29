@@ -1,13 +1,17 @@
 
 package Views;
 
+
 import Models.Produtos;
+import dao.ProdutosDAO;
+import entity.Produto;
+import javax.swing.JOptionPane;
 
 public class frmProduto extends java.awt.Dialog {
 
-    private Produtos produto = new Produtos();
+    private entity.Produto produto;
     
-    public frmProduto(java.awt.Frame parent, boolean modal, Produtos produto ) {
+    public frmProduto(java.awt.Frame parent, boolean modal, entity.Produto produto) {
         super(parent, modal);
         this.produto = produto;
         initComponents();
@@ -31,6 +35,7 @@ public class frmProduto extends java.awt.Dialog {
         btnAdicionar = new javax.swing.JButton();
         jLabel5 = new javax.swing.JLabel();
 
+        setTitle("Adicionar Produto");
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -73,6 +78,7 @@ public class frmProduto extends java.awt.Dialog {
         add(jPanel1, java.awt.BorderLayout.CENTER);
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
    
@@ -82,7 +88,20 @@ public class frmProduto extends java.awt.Dialog {
     }//GEN-LAST:event_closeDialog
 
     private void btnAdicionarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAdicionarActionPerformed
-        // TODO add your handling code here:
+        if (produto == null) {
+            produto = new entity.Produto();
+        }
+        produto.setId(Integer.parseInt(txtCodigo.getText()));
+        produto.setProduto(txtProduto.getText());
+        produto.setValorCusto(Double.parseDouble(txtPrecoCompra.getText()));
+        produto.setValorVenda(Double.parseDouble(txtPrecoVenda.getText()));
+        produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
+        if(produto == null){
+            new ProdutosDAO().inserir(produto);
+            JOptionPane.showMessageDialog(txtPrecoCompra, "Produto Cadastrado com Sucesso","Oi",1);
+        }else{
+            new ProdutosDAO().editar(produto);
+        }
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
   

@@ -38,6 +38,7 @@ public class frmLogin extends java.awt.Dialog {
 
         setPreferredSize(new java.awt.Dimension(300, 300));
         setResizable(false);
+        setTitle("Login ArenaAce");
 
         jPanel1.setBorder(javax.swing.BorderFactory.createCompoundBorder());
         jPanel1.setPreferredSize(new java.awt.Dimension(213, 213));
@@ -98,7 +99,7 @@ public class frmLogin extends java.awt.Dialog {
 
     private void btnSairActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSairActionPerformed
         // TODO add your handling code here:
-        dispose();
+        System.exit(0);
     }//GEN-LAST:event_btnSairActionPerformed
 
     /**
