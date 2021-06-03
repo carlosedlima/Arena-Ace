@@ -1,5 +1,9 @@
 package Views;
 
+import utils.DecoratedDesktopPane;
+
+
+
 public class frmMenuPrincipal extends javax.swing.JFrame {
 
     private String usuarioLogado = "";
@@ -17,14 +21,24 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        painelPrincipal = new javax.swing.JPanel();
+        painelPrincipal = new DecoratedDesktopPane();
         jMenuBar1 = new javax.swing.JMenuBar();
         jMenu1 = new javax.swing.JMenu();
         miConsultar = new javax.swing.JMenuItem();
         miVendas = new javax.swing.JMenuItem();
         jMenu2 = new javax.swing.JMenu();
+        miSobre = new javax.swing.JMenuItem();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("Sistema ArenaAce");
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowActivated(java.awt.event.WindowEvent evt) {
+                formWindowActivated(evt);
+            }
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         javax.swing.GroupLayout painelPrincipalLayout = new javax.swing.GroupLayout(painelPrincipal);
         painelPrincipal.setLayout(painelPrincipalLayout);
@@ -39,6 +53,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
 
         jMenu1.setText("Telas");
 
+        miConsultar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/novo-produto (1).png"))); // NOI18N
         miConsultar.setText("Produtos");
         miConsultar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -47,6 +62,7 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         });
         jMenu1.add(miConsultar);
 
+        miVendas.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/venda-rapida.png"))); // NOI18N
         miVendas.setText("Vendas");
         miVendas.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -58,6 +74,15 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         jMenuBar1.add(jMenu1);
 
         jMenu2.setText("Sobre");
+
+        miSobre.setText("Sobre");
+        miSobre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                miSobreActionPerformed(evt);
+            }
+        });
+        jMenu2.add(miSobre);
+
         jMenuBar1.add(jMenu2);
 
         setJMenuBar(jMenuBar1);
@@ -66,15 +91,11 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(painelPrincipal)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(painelPrincipal, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+            .addComponent(painelPrincipal)
         );
 
         pack();
@@ -91,13 +112,31 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultarActionPerformed
 
     private void miVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVendasActionPerformed
-       frmVendas vendas = new frmVendas();
+       frmVendas vendas = new frmVendas(null,null);
        if (!vendas.isVisible()) {
            painelPrincipal.add(vendas);
             vendas.setVisible(true);
         } else
             vendas.moveToFront();
     }//GEN-LAST:event_miVendasActionPerformed
+
+    private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed
+        // TODO add your handling code here:
+        frmSobre sobre = new frmSobre();
+       if (!sobre.isVisible()) {
+           painelPrincipal.add(sobre);
+            sobre.setVisible(true);
+        } else
+            sobre.moveToFront();
+    }//GEN-LAST:event_miSobreActionPerformed
+
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        ((DecoratedDesktopPane)painelPrincipal).setImage("/img/back.jpg");
+    }//GEN-LAST:event_formWindowOpened
+
+    private void formWindowActivated(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowActivated
+
+    }//GEN-LAST:event_formWindowActivated
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -137,7 +176,8 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     private javax.swing.JMenu jMenu2;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem miConsultar;
+    private javax.swing.JMenuItem miSobre;
     private javax.swing.JMenuItem miVendas;
-    private javax.swing.JPanel painelPrincipal;
+    private javax.swing.JDesktopPane painelPrincipal;
     // End of variables declaration//GEN-END:variables
 }

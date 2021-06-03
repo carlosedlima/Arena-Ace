@@ -74,9 +74,6 @@ public class GenericDAO<T> {
         return (T) getEntityManager().getReference(persistentClass, codigo);
     }
     
-    public T selecionarPorProduto(String produto) {
-        return (T) getEntityManager().getReference(persistentClass, produto);
-    }
     
     private void close() {
         if (getEntityManager().isOpen()) {

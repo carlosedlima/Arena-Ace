@@ -27,6 +27,9 @@ public class frmSobre extends javax.swing.JInternalFrame {
 
         jPanel1 = new javax.swing.JPanel();
 
+        setClosable(true);
+        setTitle("Sobre o Sistema");
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -35,7 +38,7 @@ public class frmSobre extends javax.swing.JInternalFrame {
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 426, Short.MAX_VALUE)
+            .addGap(0, 402, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());

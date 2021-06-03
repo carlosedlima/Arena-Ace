@@ -98,10 +98,11 @@ public class frmProduto extends java.awt.Dialog {
         produto.setQuantidade(Integer.parseInt(txtQuantidade.getText()));
         if(produto == null){
             new ProdutosDAO().inserir(produto);
-            JOptionPane.showMessageDialog(txtPrecoCompra, "Produto Cadastrado com Sucesso","Oi",1);
         }else{
             new ProdutosDAO().editar(produto);
         }
+        
+        dispose();
     }//GEN-LAST:event_btnAdicionarActionPerformed
 
   

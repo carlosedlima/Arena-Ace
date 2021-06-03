@@ -4,16 +4,24 @@ package Views;
 import dao.ProdutosDAO;
 import dao.VendasDAO;
 import entity.Produto;
+import entity.Venda;
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Vector;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JOptionPane;
 
 public class frmVendas extends javax.swing.JInternalFrame {
 
     ProdutosDAO produtoDAO = new ProdutosDAO();
     VendasDAO vendasDAO = new VendasDAO();
-    Produto produto = new Produto();
-    ArrayList<Produto> listCompra = new ArrayList<>();
+    Produto produto ;
+    Venda venda;
+    List<Produto> listaCompra = new ArrayList<>();
     
-    public frmVendas() {
+    public frmVendas(Produto produto,Venda venda) {
+        this.produto = produto;
+        this.venda = venda;
         initComponents();
     }
 
@@ -27,7 +35,6 @@ public class frmVendas extends javax.swing.JInternalFrame {
         jLabel3 = new javax.swing.JLabel();
         txtQuantidade = new javax.swing.JTextField();
         txtPrecoUnit = new javax.swing.JTextField();
-        txtDescricao = new javax.swing.JTextField();
         txtTotal = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -39,16 +46,34 @@ public class frmVendas extends javax.swing.JInternalFrame {
         btnFinalizarVenda = new javax.swing.JButton();
         btnRemoveItem = new javax.swing.JButton();
         btnAddProd = new javax.swing.JButton();
+        cmbProdutos = new javax.swing.JComboBox<>();
 
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Venda");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameOpened(evt);
+            }
+        });
 
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setText("Codigo");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
+        jLabel1.setText("Produto");
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 80, 50, 20));
 
         jLabel2.setText("Preço Unitário");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
@@ -63,7 +88,6 @@ public class frmVendas extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(txtPrecoUnit, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 120, 180, -1));
-        jPanel2.add(txtDescricao, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 180, -1));
         jPanel2.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 350, 70, -1));
 
         jLabel4.setText("Desconto");
@@ -76,11 +100,6 @@ public class frmVendas extends javax.swing.JInternalFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        listTelaProdutos.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public String getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(listTelaProdutos);
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -102,7 +121,7 @@ public class frmVendas extends javax.swing.JInternalFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 350, -1, -1));
+        jPanel2.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, -1, -1));
 
         btnFinalizarVenda.setText("Finalizar Venda");
         btnFinalizarVenda.addActionListener(new java.awt.event.ActionListener() {
@@ -110,7 +129,7 @@ public class frmVendas extends javax.swing.JInternalFrame {
                 btnFinalizarVendaActionPerformed(evt);
             }
         });
-        jPanel2.add(btnFinalizarVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 350, -1, -1));
+        jPanel2.add(btnFinalizarVenda, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, -1, -1));
 
         btnRemoveItem.setText("Remover Item");
         jPanel2.add(btnRemoveItem, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 280, 150, -1));
@@ -122,6 +141,13 @@ public class frmVendas extends javax.swing.JInternalFrame {
             }
         });
         jPanel2.add(btnAddProd, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 260, 180, -1));
+
+        cmbProdutos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbProdutosActionPerformed(evt);
+            }
+        });
+        jPanel2.add(cmbProdutos, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 80, 180, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -155,16 +181,46 @@ public class frmVendas extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnFinalizarVendaActionPerformed
 
     private void btnAddProdActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddProdActionPerformed
-        String desc = new String(txtDescricao.getText());
-        
+       if(validarEntradas() == true){
+         
+       }
     }//GEN-LAST:event_btnAddProdActionPerformed
 
+    private void cmbProdutosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbProdutosActionPerformed
+        
+    }//GEN-LAST:event_cmbProdutosActionPerformed
+
+    private void formInternalFrameOpened(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameOpened
+        atualizarComboCategoria();
+    }//GEN-LAST:event_formInternalFrameOpened
+
+    public boolean validarEntradas(){
+//        cmbProdutos.getSelectedIndex()== 0
+     if(txtQuantidade.getText().equals("") || txtPrecoUnit.getText().equals("")|| cmbProdutos.getSelectedIndex()== 0  ){
+         JOptionPane.showMessageDialog(this, "Complete todos os campos necessarios para a venda,");
+         txtQuantidade.requestFocus();
+         return false;
+     }
+     return true;
+    }
+    
+    
+    
+     private void atualizarComboCategoria() {
+        try {
+            List<Produto> listaProdutos = new ProdutosDAO().selecionarTodos();
+            cmbProdutos.setModel(new DefaultComboBoxModel<Produto>(listaProdutos.toArray(new Produto[listaProdutos.size()])));
+        } catch (Exception ex) {
+
+        }
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAddProd;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JButton btnFinalizarVenda;
     private javax.swing.JButton btnRemoveItem;
+    private javax.swing.JComboBox<Produto > cmbProdutos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
@@ -175,7 +231,6 @@ public class frmVendas extends javax.swing.JInternalFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JList<String> listTelaProdutos;
     private javax.swing.JTextField txtDesconto;
-    private javax.swing.JTextField txtDescricao;
     private javax.swing.JTextField txtPrecoUnit;
     private javax.swing.JTextField txtQuantidade;
     private javax.swing.JTextField txtTotal;

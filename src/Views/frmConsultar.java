@@ -3,6 +3,8 @@ package Views;
 
 import dao.ProdutosDAO;
 import entity.Produto;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
@@ -42,18 +44,38 @@ public class frmConsultar extends javax.swing.JInternalFrame {
         setIconifiable(true);
         setMaximizable(true);
         setTitle("Consultar Produto");
+        addInternalFrameListener(new javax.swing.event.InternalFrameListener() {
+            public void internalFrameActivated(javax.swing.event.InternalFrameEvent evt) {
+                formInternalFrameActivated(evt);
+            }
+            public void internalFrameClosed(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameClosing(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameDeiconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameIconified(javax.swing.event.InternalFrameEvent evt) {
+            }
+            public void internalFrameOpened(javax.swing.event.InternalFrameEvent evt) {
+            }
+        });
 
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         tblProdutos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {},
+                {},
+                {},
+                {},
+                {},
+                {},
+                {}
             },
             new String [] {
-                "Descrição", "Preço Compra", "Preço Venda", "Quantidade"
+
             }
         ));
         tblProdutos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -62,12 +84,6 @@ public class frmConsultar extends javax.swing.JInternalFrame {
             }
         });
         jScrollPane1.setViewportView(tblProdutos);
-        if (tblProdutos.getColumnModel().getColumnCount() > 0) {
-            tblProdutos.getColumnModel().getColumn(1).setResizable(false);
-            tblProdutos.getColumnModel().getColumn(1).setPreferredWidth(200);
-            tblProdutos.getColumnModel().getColumn(2).setMaxWidth(100);
-            tblProdutos.getColumnModel().getColumn(3).setMaxWidth(100);
-        }
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 30, 430, 198));
 
@@ -131,6 +147,7 @@ public class frmConsultar extends javax.swing.JInternalFrame {
     private void btnNovoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnNovoActionPerformed
         frmProduto cadastroProduto = new frmProduto(null, true, null);
         cadastroProduto.setVisible(true);
+        atualizarTabela();
     }//GEN-LAST:event_btnNovoActionPerformed
 
     private void btnExcluirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnExcluirActionPerformed
@@ -163,11 +180,18 @@ public class frmConsultar extends javax.swing.JInternalFrame {
         btnExcluir.setEnabled(true);
     }//GEN-LAST:event_tblProdutosMouseClicked
 
+    private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
+        // TODO add your handling code here:
+        atualizarTabela();
+    }//GEN-LAST:event_formInternalFrameActivated
+
      private void atualizarTabela() {
         try {
             List<Produto> listaProdutos = new ProdutosDAO().selecionarTodos();
-            TableModel tableModelProdutos = TableModelCreator.createTableModel(Produto.class, listaProdutos, null);
+            List<String> Colunas = Arrays.asList("id","produto","quantidade","valorCusto","valorVenda");
+            TableModel tableModelProdutos = TableModelCreator.createTableModel(Produto.class, listaProdutos, Colunas);
             tblProdutos.setModel(tableModelProdutos);
+            
         } catch (Exception ex) {
 
         }
