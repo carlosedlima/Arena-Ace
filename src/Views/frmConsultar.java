@@ -1,15 +1,30 @@
 
 package Views;
 
+import com.itextpdf.kernel.events.PdfDocumentEvent;
+import com.itextpdf.kernel.geom.PageSize;
+import com.itextpdf.kernel.pdf.PdfDocument;
+import com.itextpdf.kernel.pdf.PdfWriter;
+import com.itextpdf.layout.Document;
+import com.itextpdf.layout.element.Table;
+import com.itextpdf.layout.property.HorizontalAlignment;
 import dao.ProdutosDAO;
 import entity.Produto;
+import java.awt.Desktop;
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 import utils.TableModelCreator;
+import utils.pdf.Footer;
+import utils.pdf.Header;
 
 public class frmConsultar extends javax.swing.JInternalFrame {
 
@@ -113,7 +128,7 @@ public class frmConsultar extends javax.swing.JInternalFrame {
         });
         jPanel1.add(btnAlterar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 270, -1, -1));
 
-        btnRelatorio.setText("Relatorio");
+        btnRelatorio.setText("Imprimir");
         btnRelatorio.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnRelatorioActionPerformed(evt);
@@ -162,7 +177,13 @@ public class frmConsultar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-      
+                String caminho = selecionarPasta();
+        if (!caminho.equals("")) {
+            if(gerarPDF(caminho, "produto"))            
+                abrirPDF(caminho, "produto");
+            else
+                JOptionPane.showMessageDialog(this, "Erro ao gerar PDF","Erro",JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_btnRelatorioActionPerformed
 
     private void tblProdutosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblProdutosMouseClicked
@@ -197,7 +218,81 @@ public class frmConsultar extends javax.swing.JInternalFrame {
         }
     }
     
-    
+     
+    //Funções pra utilizar o PDF
+    private void abrirPDF(String caminho, String nomeArquivoPDF) {
+        try {
+            File arquivo = new File(caminho + "/" + nomeArquivoPDF + ".pdf");
+            Desktop.getDesktop().open(arquivo);
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Arquivo não encontrado.","Erro",JOptionPane.ERROR_MESSAGE);
+        }
+    }
+
+    private boolean gerarPDF(String caminho, String nomeArquivoPDF) {
+        try {
+            PdfWriter writer = new PdfWriter(caminho + "/" + nomeArquivoPDF + ".pdf");
+            PdfDocument pdf = new PdfDocument(writer);
+            pdf.setTagged();
+            pdf.setDefaultPageSize(PageSize.A4);
+
+            Document documento = new Document(pdf);
+            documento.setMargins(93, 36, 55, 36);
+            
+            Header header = new Header("Listagem de Produtos");
+            Footer footer = new Footer();
+            
+            pdf.addEventHandler(PdfDocumentEvent.START_PAGE, header);
+            pdf.addEventHandler(PdfDocumentEvent.END_PAGE, footer);
+
+            //TITULO
+//            Paragraph titulo = new Paragraph("Listagem dos Produtos");
+//            titulo.setBold();
+//            titulo.setFontSize(15);
+//            titulo.setTextAlignment(TextAlignment.CENTER);
+            
+            //tabela de produto
+            Table tabela = new Table(5);
+            tabela.setWidth(400);
+            tabela.setHorizontalAlignment(HorizontalAlignment.CENTER);
+            tabela.addCell("Categoria");
+            tabela.addCell("Descrição");
+            tabela.addCell("ID");
+            tabela.addCell("Quantidade");
+            tabela.addCell("Valor Un.");
+            for (int i = 0; i < tblProdutos.getRowCount(); i++) {
+                String id = tblProdutos.getValueAt(i, 0).toString();
+                String produto = tblProdutos.getValueAt(i, 1).toString();
+                String quantidade = tblProdutos.getValueAt(i, 2).toString();
+                String valorCusto = tblProdutos.getValueAt(i, 3).toString();
+                String valorVenda = tblProdutos.getValueAt(i, 4).toString();
+                tabela.addCell(id);
+                tabela.addCell(produto);
+                tabela.addCell(quantidade);
+                tabela.addCell(valorCusto);
+                tabela.addCell(valorVenda);
+            }
+            //documento.add(titulo);
+            documento.add(tabela);
+            footer.writeTotal(pdf);
+            documento.close();
+            return true;
+        } catch (FileNotFoundException ex) {
+            Logger.getLogger(frmConsultar.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+
+    private String selecionarPasta() {
+        try {
+            JFileChooser arquivo = new JFileChooser();
+            arquivo.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+            arquivo.showSaveDialog(this);
+            return arquivo.getSelectedFile().getPath();
+        } catch (Exception ex) {
+            return "";
+        }
+    }
     
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAlterar;

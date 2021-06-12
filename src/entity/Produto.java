@@ -41,8 +41,6 @@ public class Produto implements Serializable {
     @Basic(optional = false)
     @Column(name = "quantidade")
     private int quantidade;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProd")
-    private Collection<Venda> vendaCollection;
 
     public Produto() {
     }
@@ -100,13 +98,6 @@ public class Produto implements Serializable {
         this.quantidade = quantidade;
     }
 
-    public Collection<Venda> getVendaCollection() {
-        return vendaCollection;
-    }
-
-    public void setVendaCollection(Collection<Venda> vendaCollection) {
-        this.vendaCollection = vendaCollection;
-    }
 
     @Override
     public int hashCode() {

@@ -112,12 +112,12 @@ public class frmMenuPrincipal extends javax.swing.JFrame {
     }//GEN-LAST:event_miConsultarActionPerformed
 
     private void miVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miVendasActionPerformed
-       frmVendas vendas = new frmVendas(null,null);
-       if (!vendas.isVisible()) {
-           painelPrincipal.add(vendas);
-            vendas.setVisible(true);
+       frmVendas frmvendas = new frmVendas();
+       if (!frmvendas.isVisible()) {
+           painelPrincipal.add(frmvendas);
+            frmvendas.setVisible(true);
         } else
-            vendas.moveToFront();
+            frmvendas.moveToFront();
     }//GEN-LAST:event_miVendasActionPerformed
 
     private void miSobreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_miSobreActionPerformed

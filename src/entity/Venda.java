@@ -6,6 +6,7 @@
 package entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -13,9 +14,11 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -43,9 +46,23 @@ public class Venda implements Serializable {
     @Basic(optional = false)
     @Column(name = "quantidade")
     private int quantidade;
-    @JoinColumn(name = "id_prod", referencedColumnName = "id")
-    @ManyToOne(optional = false)
-    private Produto idProd;
+    
+   
+    @ManyToMany
+    @JoinColumn(name = "id_prod")
+    private List<Produto> produtos;
+
+    
+    
+    
+    public List<Produto> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produto> produtos) {
+        this.produtos = produtos;
+    }
+    
 
     public Venda() {
     }
@@ -82,14 +99,6 @@ public class Venda implements Serializable {
 
     public void setQuantidade(int quantidade) {
         this.quantidade = quantidade;
-    }
-
-    public Produto getIdProd() {
-        return idProd;
-    }
-
-    public void setIdProd(Produto idProd) {
-        this.idProd = idProd;
     }
 
     @Override

@@ -36,6 +36,7 @@ public class frmProduto extends java.awt.Dialog {
         jLabel5 = new javax.swing.JLabel();
 
         setTitle("Adicionar Produto");
+        setType(java.awt.Window.Type.UTILITY);
         addWindowListener(new java.awt.event.WindowAdapter() {
             public void windowClosing(java.awt.event.WindowEvent evt) {
                 closeDialog(evt);
@@ -62,6 +63,11 @@ public class frmProduto extends java.awt.Dialog {
         jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, -1));
 
         btnCancelar.setText("Cancelar");
+        btnCancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelarActionPerformed(evt);
+            }
+        });
         jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 220, -1, -1));
 
         btnAdicionar.setText("Adicionar");
@@ -104,6 +110,10 @@ public class frmProduto extends java.awt.Dialog {
         
         dispose();
     }//GEN-LAST:event_btnAdicionarActionPerformed
+
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+        dispose();
+    }//GEN-LAST:event_btnCancelarActionPerformed
 
   
     public static void main(String args[]) {
