@@ -1,10 +1,12 @@
 
 package Models;
 
+import java.util.List;
+
 public class Vendas {
     
     
-    private String produto;
+    private List<Produtos> produtos;
     private double valor;
     private int quantidade;
 
@@ -12,8 +14,8 @@ public class Vendas {
     
     
     
-    public Vendas(String produto, double valor, int quantidade) {
-        this.produto = produto;
+    public Vendas(List<Produtos> produtos, double valor, int quantidade) {
+        this.produtos = produtos;
         this.valor = valor;
         this.quantidade = quantidade;
     }
@@ -26,16 +28,17 @@ public class Vendas {
     public Vendas() {
     }
 
-    public String getProduto() {
-        return produto;
-    }
-
-    public void setProduto(String produto) {
-        this.produto = produto;
-    }
 
     public double getValor() {
         return valor;
+    }
+
+    public List<Produtos> getProdutos() {
+        return produtos;
+    }
+
+    public void setProdutos(List<Produtos> produtos) {
+        this.produtos = produtos;
     }
 
     public void setValor(double valor) {

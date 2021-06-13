@@ -79,6 +79,13 @@ public class frmVendas extends javax.swing.JInternalFrame {
         jLabel3.setText("Quantidade");
         jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 140, -1, -1));
         jPanel2.add(txtQuantidade, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 180, -1));
+
+        txtTotal.setEditable(false);
+        txtTotal.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtTotalActionPerformed(evt);
+            }
+        });
         jPanel2.add(txtTotal, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 350, 70, -1));
 
         jLabel4.setText("Desconto");
@@ -209,6 +216,10 @@ public class frmVendas extends javax.swing.JInternalFrame {
             }
         }
     }//GEN-LAST:event_tblListaComprasMouseClicked
+
+    private void txtTotalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtTotalActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtTotalActionPerformed
 
    private boolean validarEntradas(){
 //        cmbProdutos.getSelectedIndex()== 0

@@ -177,7 +177,7 @@ public class frmConsultar extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_btnExcluirActionPerformed
 
     private void btnRelatorioActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRelatorioActionPerformed
-                String caminho = selecionarPasta();
+        String caminho = selecionarPasta();
         if (!caminho.equals("")) {
             if(gerarPDF(caminho, "produto"))            
                 abrirPDF(caminho, "produto");
@@ -255,11 +255,11 @@ public class frmConsultar extends javax.swing.JInternalFrame {
             Table tabela = new Table(5);
             tabela.setWidth(400);
             tabela.setHorizontalAlignment(HorizontalAlignment.CENTER);
-            tabela.addCell("Categoria");
-            tabela.addCell("Descrição");
-            tabela.addCell("ID");
+            tabela.addCell("Id");
+            tabela.addCell("Produto");
             tabela.addCell("Quantidade");
-            tabela.addCell("Valor Un.");
+            tabela.addCell("Valor Custo");
+            tabela.addCell("Valor Venda");
             for (int i = 0; i < tblProdutos.getRowCount(); i++) {
                 String id = tblProdutos.getValueAt(i, 0).toString();
                 String produto = tblProdutos.getValueAt(i, 1).toString();
